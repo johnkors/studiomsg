@@ -51,7 +51,8 @@
             $("#broadcast").click(function () {
                 // Call the chat method on the server
                 var msg = $('#Message').val();
-                studio.server.send(msg);
+                var type = $('#ValuedOfSelectedMessageType option:selected').text();
+                studio.server.send(msg, type);
             });
         });
     });

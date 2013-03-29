@@ -39,10 +39,11 @@
             $('#messages').append('<li>' + clientName + ' logget av </li>');
         };
 
-        studio.client.broadcastMessage = function (message) {
+        studio.client.broadcastMessage = function (message, type) {
             $('#studio').hide();
             $("#studio").toggleClass("alert-error");
-            $('#studio').text(message);
+            var messageFromProdusent = "[" + type + "] : " + message;
+            $('#studio').text(messageFromProdusent);
             $('#studio').fadeIn( 1200, function() {
                 $("#studio").toggleClass("alert-error");
             });

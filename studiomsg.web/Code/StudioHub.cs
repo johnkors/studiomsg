@@ -4,9 +4,9 @@ namespace studiomsg.web.Code
 {
     public class StudioHub : Hub
     {
-        public void Send(string message)
+        public void Send(string message, string type)
         {
-            Clients.All.broadcastMessage(message);
+            Clients.All.broadcastMessage(message, type);
         }
 
         public void Connected(string clientName)
