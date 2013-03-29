@@ -1,14 +1,27 @@
-﻿<h1>Studio</h1>
-<div id="studio">
-    
+﻿<div class="container">
+
+    <h1>Studio</h1>
+
+    <div id="hero" class="hero-unit">
+        <div id="studio" class="text-center">
+            Ingen meldinger fra produsent
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row-fluid">
+        <div class="span6">
+            <h4>Logg</h4>
+            <ul id="messages">
+            </ul>
+        </div>
+    </div>
 </div>
 
-<ul id="messages">
-    
-</ul>
 
 <script type="text/javascript">
-    $(function () {
+    $(function() {
         var studio = $.connection.studioHub;
         $.connection.hub.logging = true;
         $.connection.hub.start().done(function() {
@@ -18,17 +31,23 @@
         $(window).bind("beforeunload", function() {
             studio.server.disconnected("Studio");
         });
-        
-        studio.client.connected = function (clientName) {
+
+        studio.client.connected = function(clientName) {
             $('#messages').append('<li> ' + clientName + ' logget på </li>');
         };
-        studio.client.disconnected = function (clientName) {
+        studio.client.disconnected = function(clientName) {
             $('#messages').append('<li>' + clientName + ' logget av </li>');
         };
-        
+
         studio.client.broadcastMessage = function (message) {
+            $('#studio').hide();
+            $("#studio").toggleClass("alert-error");
             $('#studio').text(message);
+            $('#studio').fadeIn( 1200, function() {
+                $("#studio").toggleClass("alert-error");
+            });
         };
     });
+            
 </script>
 

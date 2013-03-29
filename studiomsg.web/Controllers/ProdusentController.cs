@@ -8,34 +8,21 @@ namespace studiomsg.web.Controllers
     {
         public ActionResult Index()
         {
-            StudioMessage defaultModel;
             var studioMessageTypes = new List<StudioMessageType>
                                              {
                                                  new StudioMessageType {Name = "E-post", Value = "em"},
                                                  new StudioMessageType {Name = "Twitter", Value = "tw"},
                                                  new StudioMessageType {Name = "Facebook", Value = "fb"}
                                              };
-            if (TempData["studiomsg"] != null)
-            {
-                defaultModel = (StudioMessage) TempData["studiomsg"];
-                defaultModel.AvailableTypes = studioMessageTypes;
-            }
-            else
-            {
-                defaultModel = new StudioMessage();
-                defaultModel.AvailableTypes = studioMessageTypes;
-                defaultModel.ValuedOfSelectedMessageType = studioMessageTypes.FirstOrDefault().Value;
-            }
+
+            var defaultModel = new StudioMessage();
+            defaultModel.AvailableTypes = studioMessageTypes;
+            defaultModel.ValuedOfSelectedMessageType = studioMessageTypes.FirstOrDefault().Value;
             return View(defaultModel);
 
         }
 
-        [HttpPost]
-        public ActionResult SendMessage(StudioMessage studioMessage)
-        {
-            TempData["studiomsg"] = studioMessage;
-            return RedirectToAction("Index");
-        }
+
     }
 
     public class StudioMessageType

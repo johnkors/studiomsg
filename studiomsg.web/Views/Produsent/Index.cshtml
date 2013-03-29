@@ -1,39 +1,35 @@
 ﻿@using studiomsg.web.Controllers
 @model StudioMessage
 @{
-    var temptDataMsg = TempData["studiomsg"];
-    StudioMessage msgSent = null;
-    if (temptDataMsg != null)
-    {
-        msgSent = (StudioMessage) temptDataMsg;
-    }
-
     var availableTypes = new SelectList(Model.AvailableTypes, "Value", "Name");
 }
-<h1>Produsent</h1>
-<div id="admin">
 
-        <span>Melding til studio:</span>
-        @Html.TextAreaFor(m => m.Message)
-        @Html.DropDownListFor( m => m.ValuedOfSelectedMessageType, availableTypes)
-   
-        <button id="broadcast">Send til studio</button>
-    
+<div class="container">
+    <h1>Produsent</h1>
+    <div class="hero-unit">
+        @Html.TextAreaFor(m => m.Message, new { placeholder = "Melding til studio..", rows = 10 })
+        @Html.DropDownListFor(m => m.ValuedOfSelectedMessageType, availableTypes)
+        <button id="broadcast" class="btn">Send til studio</button>
+    </div>
+
+    <hr>
+
+    <div class="row-fluid">     
+        <div class="span6">
+            <h4>Logg</h4>
+            <ul id="messages">
+            </ul>
+        </div>
+    </div>
 </div>
-<div id="alert">
-    @if(msgSent != null){
-        <span>Melding sendt til studio: @msgSent.Message via @msgSent.SelectedMsgType.Name </span>
-    }
-    <ul id="messages">
-        
-    </ul>
-</div>
+
+
 
 <script type="text/javascript">
     $(function () {
         // Proxy created on the fly          
         var studio = $.connection.studioHub;
-        
+
         studio.client.broadcastMessage = function (message) {
             $('#messages').append('<li>' + message + '</li>');
         };
@@ -41,14 +37,14 @@
         studio.client.connected = function (clientName) {
             $('#messages').append('<li> ' + clientName + ' logget på </li>');
         };
-        studio.client.disconnected = function(clientName) {
-            $('#messages').append('<li>' + clientName+' logget av </li>');
+        studio.client.disconnected = function (clientName) {
+            $('#messages').append('<li>' + clientName + ' logget av </li>');
         };
-        
+
         $(window).bind("beforeunload", function () {
             studio.server.disconnected("Produsent");
         });
-        
+
         // Start the connection
         $.connection.hub.start().done(function () {
             studio.server.connected("Produsent");
