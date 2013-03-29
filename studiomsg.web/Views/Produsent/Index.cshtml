@@ -12,17 +12,51 @@
 }
 <h1>Produsent</h1>
 <div id="admin">
-    @using(Html.BeginForm("SendMessage", "Produsent"))
-    {
+
         <span>Melding til studio:</span>
         @Html.TextAreaFor(m => m.Message)
         @Html.DropDownListFor( m => m.ValuedOfSelectedMessageType, availableTypes)
    
-        <button>Send til studio</button>
-    }
+        <button id="broadcast">Send til studio</button>
+    
 </div>
 <div id="alert">
     @if(msgSent != null){
         <span>Melding sendt til studio: @msgSent.Message via @msgSent.SelectedMsgType.Name </span>
     }
+    <ul id="messages">
+        
+    </ul>
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        // Proxy created on the fly          
+        var studio = $.connection.studioHub;
+        
+        studio.client.broadcastMessage = function (message) {
+            $('#messages').append('<li>' + message + '</li>');
+        };
+
+        studio.client.connected = function (clientName) {
+            $('#messages').append('<li> ' + clientName + ' logget på </li>');
+        };
+        studio.client.disconnected = function(clientName) {
+            $('#messages').append('<li>' + clientName+' logget av </li>');
+        };
+        
+        $(window).bind("beforeunload", function () {
+            studio.server.disconnected("Produsent");
+        });
+        
+        // Start the connection
+        $.connection.hub.start().done(function () {
+            studio.server.connected("Produsent");
+            $("#broadcast").click(function () {
+                // Call the chat method on the server
+                var msg = $('#Message').val();
+                studio.server.send(msg);
+            });
+        });
+    });
+</script>

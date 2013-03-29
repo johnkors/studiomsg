@@ -9,13 +9,17 @@ namespace studiomsg.web
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
+            // https://github.com/SignalR/SignalR/wiki/Faq
+            // needs to be before other routes are registered for some reason.
+            RouteTable.Routes.MapHubs(); 
 
+
+            AreaRegistration.RegisterAllAreas();
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            RouteTable.Routes.MapHubs();
+           
         }
     }
 }
