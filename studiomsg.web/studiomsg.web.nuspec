@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>StudioMessage.Web</id>
+    <title>Studio Messenger</title>
+    <version>1.0.0</version>
+    <authors>John Korsnes</authors>
+    <owners>John Korsnes</owners>
+    <licenseUrl>http://yourcompany.com</licenseUrl>
+    <projectUrl>http://yourcompany.com</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Studio messenger app</description>
+    <releaseNotes>First release</releaseNotes>
+  </metadata>
+</package>
