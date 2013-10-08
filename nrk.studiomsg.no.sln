@@ -10,6 +10,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{01D5E5
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".octopack", ".octopack", "{437C1C6D-17E5-487B-9882-41D98F1F6612}"
+	ProjectSection(SolutionItems) = preProject
+		.octopack\NuGet.exe = .octopack\NuGet.exe
+		.octopack\OctoPack.targets = .octopack\OctoPack.targets
+		.octopack\OctoPack.Tasks.dll = .octopack\OctoPack.Tasks.dll
+		.octopack\OctoPack.Tasks.pdb = .octopack\OctoPack.Tasks.pdb
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
