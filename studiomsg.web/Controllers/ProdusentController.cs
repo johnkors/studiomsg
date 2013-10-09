@@ -4,6 +4,7 @@ using System.Web.Mvc;
 
 namespace studiomsg.web.Controllers
 {
+	[Authorize]
     public class ProdusentController : Controller
     {
         public ActionResult Index()

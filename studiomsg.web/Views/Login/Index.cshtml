@@ -1,0 +1,26 @@
+﻿@model studiomsg.web.Controllers.LoginModel
+@{
+    
+}
+
+<div class="container">
+
+    <p class="lead">Innlogging</p>
+    <hr>
+    @if (Model.IsLoginAttemptWithWrongPassword)
+    {
+    <div class="alert alert-danger">Feil passord!</div>    
+    }
+    
+    <div class="row-fluid">
+        <div class="span6">
+                @using (Html.BeginForm("Login", "Login"))
+                {
+                    <p>Passord: @Html.PasswordFor(model => model.Password)
+                    <input type="submit" value="Logg inn"/>
+                        </p>
+                }
+
+        </div>
+    </div>
+</div>
